@@ -1,0 +1,186 @@
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Lightweight jQuery plugin to add filter and autocomplete funcionality to inputs">
+    <meta name="keywords" content="jquery, plugin, autocomplete, filter, select">
+    <meta name="author" content="Leandro Vieira">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>jQuery Now Open</title>
+
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <script language="javascript" type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/now_open.js"></script>
+
+    <script type="text/javascript" src="js/sh/shCore.js"></script>
+    <script type="text/javascript" src="js/sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="js/sh/shCoreDefault.css"/>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+    <script language="javascript" type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+
+      <h1>Now Open <br>jQuery plugin</h1>
+      <div class="description">
+        <p>Lightweight plugin to determine if a the current times falls within a given set of times and days.</p><br>
+
+        <div class="centered"><a href="https://github.com/alotropico/jquery.autocomplete" class="button">Download or fork on Github</a></div>
+      </div>
+
+      <div class="content">
+
+        <div class="box">
+
+          <h3>Installation</h3>
+
+          <ul>
+            <li>Add jQuery</li>
+            <li>Add now_open.js</li>
+            <li>Initialize</li>
+          </ul>
+
+        </div>
+
+        <div class="box">
+
+          <h3>Usage</h3>
+
+          <ul>
+            <li>
+              <em class="strong">week</em>:
+              An array with each time of the week to show as open. The key of each value is the time of the week, from <em>0</em> (sunday) to <em>6</em> (saturday).<br>
+              The key is followed by an array of the open and close times.<br>
+              For minutes, use decimals. For example, <em>6:30</em> would be <em>6.5</em>, <em>22:15</em> would be <em>22.25</em> and so on.<br>
+              <small>Default: Monday to Friday, 8:30 to 17:00</small>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <em class="strong">excludes</em>:
+              Is an array of hollydays or other specific dates of the year to exclude, each one in the form of <em>[month, year]</em>.<br>
+              The month is an integer from <em>1</em> to <em>12</em>.<br>
+              <small>Default: none</small>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <em class="strong">callback</em>:
+              The callback function is called with two parameters:<br>
+              the original element the function was called from,<br>
+              and the current open/close status as a boolean.<br>
+              <small>Default: none</small>
+            </li>
+          </ul>
+
+<pre class="brush: js;">
+var myWeek = [
+    {'1':[8.5,20]},
+    {'2':[8.5,20]},
+    {'3':[8.5,20]},
+    {'4':[8.5,20]},
+    {'5':[8.5,20]},
+    {'6':[10,20]}
+  ];
+
+var myExcludes = [
+    [1,1],
+    [1,6]
+  ];
+
+// Initialize plugin
+
+var autocomplete1 = $('#open_div').now_open({
+  week: myWeek,
+  excludes: myExcludes,
+  callback: myCallback
+});
+
+// Callback
+
+function myCallback(element, isOpen){
+  if(isOpen){
+    element.text('We are open... call us!');
+  } else {
+    element.text('We are not open');
+  }
+}
+</pre>
+          <div id="open_div" class="open_div"></div>
+
+      </div>
+
+      <div class="box">
+
+          <h3>More options</h3>
+
+          <ul>
+            <li>
+              <em class="strong">latency</em>:
+              Yo may want to keep checking for the open status. For that, pass the interval of minutes as a integer.<br>
+              <small>Default: 1</small>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <em class="strong">currentDate</em>:
+              You also may want to force a date instead of using the actual current time, mostly for testing purposes. Pass any valid date format.<br>
+              <small>Default: false</small>
+            </li>
+          </ul>
+
+<pre class="brush: js;">
+var autocomplete1 = $('#open_div').now_open({
+  week: myWeek,
+  excludes: myExcludes,
+  callback: myCallback,
+  latency: false,
+  currentDate: "January 1, 2017 11:00:00" // New year, close
+});
+</pre>
+          <div id="open_div_2" class="open_div"></div>
+
+<pre class="brush: js;">
+var autocomplete1 = $('#open_div').now_open({
+  week: myWeek,
+  excludes: myExcludes,
+  callback: myCallback,
+  latency: 1,
+  currentDate: "January 8, 2017 11:00:00"  // Monday, open
+});
+</pre>
+          <div id="open_div_3" class="open_div"></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer">
+
+        <a href="https://github.com/alotropico/jquery.autocomplete" class="button">Download or fork on Github</a>
+
+        <br><br>
+
+        jQuery Now Open was released on Nov 2016
+        <br>
+        Created and maintained by 
+        <a href="http://alotropico.com/" target="_blank">Leandro Vieira</a>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>
